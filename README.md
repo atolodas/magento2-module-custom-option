@@ -1,6 +1,6 @@
 ## Synopsis
 
-This extension demostrate how to add custom option when adding a product to cart.
+This extension demonstrate how to add custom option when adding a product to cart.
 
 ## Technical features
 

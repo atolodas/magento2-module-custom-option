@@ -18,9 +18,11 @@ class SalesModelServiceQuoteSubmitBeforeObserver implements ObserverInterface {
 
         /* @var  \Magento\Sales\Model\Order\Item $orderItem */
         foreach ($this->order->getItems() as $orderItem) {
-            if (!$orderItem->getParentItemId() && $orderItem->getProductType() == \Magento\Catalog\Model\Product\Type::TYPE_SIMPLE) {
+            if (!$orderItem->getParentItemId()) {
 
                 if ($quoteItem = $this->getQuoteItemById($orderItem->getQuoteItemId())) {
+                    error_log("===" . $quoteItem->getId());
+
                     if ($additionalOptionsQuote = $quoteItem->getOptionByCode('additional_options')) {
 
                         if ($additionalOptionsOrder = $orderItem->getProductOptionByCode('additional_options')) {
@@ -42,7 +44,7 @@ class SalesModelServiceQuoteSubmitBeforeObserver implements ObserverInterface {
     }
 
     private function getQuoteItemById($id) {
-        if (empty($this->quoteItems)) {
+        if (!empty($this->quoteItems)) {
             /* @var  \Magento\Quote\Model\Quote\Item $item */
             foreach ($this->quote->getItems() as $item) {
 
